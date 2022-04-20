@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
   $(document).ready(function(){
-    $('#form').on('submit',function(e){
+    $('#form').on('#submit',function(e){
      e.preventDefault();
       var title=$("#title").val();
       var content=$("#content").val();
@@ -20,8 +20,7 @@ title : title,
 content : content,
 category : category,
 picname : picname
-}
-     
+    });
       });
       });
 </script>
@@ -43,7 +42,7 @@ picname : picname
 {{ session('status') }}
 </div>
 @endif
-<form action="{{ route('oriblogs.update',$Oriblog->id) }}" method="POST" id="form" enctype="multipart/form-data">
+<form action="{{ route('oriblogs.update',$Oriblog->id) }}" method="post" id="form" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 <div class="row">
@@ -92,7 +91,7 @@ picname : picname
     @enderror
     </div>
     </div>
-<button type="submit" class="btn btn-primary ml-3">Submit</button>
+<button type="submit" id="submit" class="btn btn-primary ml-3">Submit</button>
 </div>
 </form>
 </div>
