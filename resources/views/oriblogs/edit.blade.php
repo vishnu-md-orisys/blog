@@ -5,6 +5,26 @@
 <title>Edit OriBlog</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
 <link rel="stylesheet" href="{{asset('asset/css/style2.css')}}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#form').on('submit',function(e){
+     e.preventDefault();
+      var title=$("#title").val();
+      var content=$("#content").val();
+      var category=$("#category").val();
+      var picname=$("#picname").val();
+      $.post("{{ route('oriblogs.update',$Oriblog->id) }}",
+{
+title : title,
+content : content,
+category : category,
+picname : picname
+}
+     
+      });
+      });
+</script>
 </head>
 <body>
 <div class="container mt-2">
@@ -23,14 +43,14 @@
 {{ session('status') }}
 </div>
 @endif
-<form action="{{ route('oriblogs.update',$Oriblog->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('oriblogs.update',$Oriblog->id) }}" method="POST" id="form" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
         <strong>Category</strong>
-        <select name="category" class="form-control" value="{{ $Oriblog->category }}">
+        <select name="category" class="form-control" value="{{ $Oriblog->category }}" id="category">
             <option value="Personal blogs">Personal blogs</option>
             <option value="Business/corporate blogs">Business/corporate blogs</option>
             <option value="Personal brand/professional blogs">Personal brand/professional blogs</option>
@@ -47,7 +67,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Title</strong>
-<input type="text" name="title" value="{{ $Oriblog->title }}" class="form-control" placeholder="Blog Title">
+<input type="text" name="title" id="title" value="{{ $Oriblog->title }}" class="form-control" placeholder="Blog Title">
 @error('title')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -57,7 +77,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Content</strong>
-<textarea name="content"  class="form-control" style="height:300px";><?php echo $Oriblog->content; ?> </textarea>
+<textarea name="content" id="content" class="form-control" style="height:300px";><?php echo $Oriblog->content; ?> </textarea>
 @error('content')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
