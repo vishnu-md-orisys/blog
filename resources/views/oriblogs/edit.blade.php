@@ -14,7 +14,7 @@
       var content=$("#content").val();
       var category=$("#category").val();
       var picname=$("#picname").val();
-      $.post("{{ route('oriblogs.update',$Oriblog->id) }}",
+      $.post('/{id}/edit',
 {
 title : title,
 content : content,
@@ -77,7 +77,7 @@ picname : picname
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Content</strong>
-<textarea name="content" id="content" class="form-control" style="height:300px";><?php echo $Oriblog->content; ?> </textarea>
+<textarea name="content" id="content" class="form-control" style="height:300px"><?php echo $Oriblog->content; ?> </textarea>
 @error('content')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
