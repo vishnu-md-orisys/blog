@@ -3,6 +3,5 @@
 use App\Http\Controllers\OriBlogController;
  
 Route::resource('oriblogs',OriBlogController::class);
-Route::get('/{id}/edit', 'OriBlogController@edit');
+Route::post('/create', 'OriBlogController@store');
 Route::post('/{id}/edit', 'OriBlogController@update');
-

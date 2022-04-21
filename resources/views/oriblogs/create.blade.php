@@ -5,6 +5,25 @@
 <title>Add Blog</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
 <link rel="stylesheet" href="{{asset('asset/css/style.css')}}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#form').on('#submit',function(e){
+     e.preventDefault();
+      var title=$("#title").val();
+      var content=$("#content").val();
+      var category=$("#category").val();
+      var picname=$("#picname").val();
+      $.post('/create',
+{
+title : title,
+content : content,
+category : category,
+picname : picname
+    });
+      });
+      });
+</script>
 </head>
 <body>
 <div class="container mt-2">
@@ -23,13 +42,13 @@
 {{ session('status') }}
 </div>
 @endif
-<form action="{{ route('oriblogs.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('oriblogs.store') }}" method="POST" id="form" enctype="multipart/form-data">
 @csrf
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
         <strong>Category</strong>
-        <select name="category" class="form-control">
+        <select name="category" class="form-control" id="category">
             <option selected hidden disabled></option>
             <option value="Personal blogs">Personal blogs</option>
             <option value="Business/corporate blogs">Business/corporate blogs</option>
@@ -47,7 +66,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Title</strong>
-<input type="text" name="title" class="form-control" placeholder="Blog Title">
+<input type="text" name="title" class="form-control" id="title" placeholder="Blog Title">
 @error('title')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -56,7 +75,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Content</strong>
-<textarea name="content" class="form-control" placeholder="Blog Content" style="height:300px";></textarea>
+<textarea name="content" class="form-control" placeholder="Blog Content" id="content" style="height:300px";></textarea>
 @error('content')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -71,7 +90,7 @@
     @enderror
     </div>
     </div>
-<button type="submit" class="btn btn-primary ml-3">Submit</button>
+<button type="submit" id="submit" class="btn btn-primary ml-3">Submit</button>
 </div>
 </form>
 </body>
