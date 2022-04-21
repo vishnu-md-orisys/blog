@@ -8,19 +8,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
   $(document).ready(function(){
-    $('#form').on('#submit',function(e){
+    $('#submit').on('click',function(e){
      e.preventDefault();
+     console.log("success");
+     var token=$("[name='_token']").val();
       var title=$("#title").val();
       var content=$("#content").val();
       var category=$("#category").val();
-      var picname=$("#picname").val();
-      $.post('/create',
+      var picname=$("#picname")[0].files[0];
+      var datastring=new FormData(document.getElementById("create-form"));
+      console.log($("#picname")[0].files[0]);
+      $.post('/oriblogs',
 {
 title : title,
 content : content,
 category : category,
-picname : picname
+picname : picname,
+_token: token
     });
+     
       });
       });
 </script>
@@ -42,7 +48,7 @@ picname : picname
 {{ session('status') }}
 </div>
 @endif
-<form action="{{ route('oriblogs.store') }}" method="POST" id="form" enctype="multipart/form-data">
+<form action="test" method="POST" id="create-form" enctype="multipart/form-data">
 @csrf
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
